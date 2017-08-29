@@ -59,8 +59,8 @@ rgba = {
 
 class Bttn:
 
-    x = 0.15  # size_hint value for width
-    y = 0.1   # size_hint value for height
+    x = 0.09  # size_hint value for width
+    y = 0.06   # size_hint value for height
 
     hide = -1
 
@@ -75,17 +75,19 @@ class Bttn:
     get_i_x_hint = x/2
     get_i_y_hint = 1-(2*y)
 
-    spc_0_y_hint = 1-(3*y)
-    spc_1_y_hint = 1-(3*y)
+    spc_n_pos_hint = {
+        0: {'x': 0, 'top': 1-(3*y)},
+        1: {'x': x/2, 'top': 1-(3*y)},
+        2: {'x': 0, 'top': 1-(4*y)},
+        3: {'x': x/2, 'top': 1-(4*y)},
+        4: {'x': 0, 'top': 1-(5*y)},
+        5: {'x': x/2, 'top': 1-(5*y)},
+        6: {'x': 0, 'top': 1-(6*y)},
+        7: {'x': x/2, 'top': 1-(6*y)},
+        'hide': {'x': hide}
+    }
 
-    spc_2_y_hint = 1-(4*y)
-    spc_3_y_hint = 1-(4*y)
 
-    spc_4_y_hint = 1-(5*y)
-    spc_5_y_hint = 1-(5*y)
-
-    spc_6_y_hint = 1-(6*y)
-    spc_7_y_hint = 1-(6*y)
 
 # end class Bttn()
 
