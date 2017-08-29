@@ -3,20 +3,31 @@
 # est. Aug 2017
 
 rgba_list = [
-    [1., 0., 0., 0.45],     # red
-    [1., 0.5, 0., 0.45],    # orange
-    [1., 1., 0., 0.45],     # yellow
-    [0., 1., 0., 0.45],     # green
-    [0., 1., 1., 0.45],     # cyan
-    [0., 0.5, 1., 0.45],    # blue
-    [0.375, 0., 1., 0.45],  # purple
-    [1., 0., 1., 0.45],     # magenta
-    [0.5, 0.5, 0.5, 0.45],  # half-way grey
-    [1., 1., 1., 0.45],     # inverse  (full contrast to background)
-    [0., 0., 0., 1.]        # screen background
+    [1., 0., 0., 0.45],     # 0 red
+    [1., 0.5, 0., 0.45],    # 1 orange
+    [1., 1., 0., 0.45],     # 2 yellow
+    [0., 1., 0., 0.45],     # 3 green
+    [0., 1., 1., 0.45],     # 4 cyan
+    [0., 0.5, 1., 0.45],    # 5 blue
+    [0.375, 0., 1., 0.45],  # 6 purple
+    [1., 0., 1., 0.45],     # 7 magenta
+    [0.5, 0.5, 0.5, 0.45],  # 8 half-way grey
+    [1., 1., 1., 0.45],     # 9 inverse  (full contrast to background)
+    [0., 0., 0., 1.]        # 10 screen background
 ]
 
 rgba = {
+    0: rgba_list[0],
+    1: rgba_list[1],
+    2: rgba_list[2],
+    3: rgba_list[3],
+    4: rgba_list[4],
+    5: rgba_list[5],
+    6: rgba_list[6],
+    7: rgba_list[7],
+    8: rgba_list[8],
+    9: rgba_list[9],
+    10: rgba_list[10],
     'red': rgba_list[0],
     'r': rgba_list[0],
     'orange': rgba_list[1],
@@ -55,11 +66,27 @@ class Bttn:
 
     # Top Row Buttons
     txt_x_hint = x
+    spaces_x_hint = 2*x
     i_x_hint = 3*x
 
     # Left Side Buttons
     prs_y_hint = 1-y
+
+    get_i_x_hint = x/2
     get_i_y_hint = 1-(2*y)
+
+    spc_0_y_hint = 1-(3*y)
+    spc_1_y_hint = 1-(3*y)
+
+    spc_2_y_hint = 1-(4*y)
+    spc_3_y_hint = 1-(4*y)
+
+    spc_4_y_hint = 1-(5*y)
+    spc_5_y_hint = 1-(5*y)
+
+    spc_6_y_hint = 1-(6*y)
+    spc_7_y_hint = 1-(6*y)
+
 # end class Bttn()
 
 
