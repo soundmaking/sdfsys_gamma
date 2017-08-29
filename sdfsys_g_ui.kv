@@ -1,0 +1,132 @@
+#: import NoTransition kivy.uix.screenmanager.NoTransition
+#: import rgba sdfsys_gamma.rgba
+#: import bttn sdfsys_gamma.Bttn
+#: import sys sdfsys_gamma.SysUi
+
+    
+<Button>:
+    size_hint: bttn.x, bttn.y
+    font_size: sp(20)
+    color: rgba['f']
+    background_color: rgba['h']
+
+<TextInput>:
+    font_name: 'Courier New'
+    font_size: sp(32)
+    background_color: [0,0,0,0]
+
+ScreenManagement:
+    transition: NoTransition()
+    MainScreen:
+    OtherScreen:
+    
+<MainScreen>:
+#     canvas.before:
+#         Color:
+#             rgba: 1, 1, 1, 1
+#         Rectangle:
+#             pos: self.pos
+#             size: self.size
+    name: 'main_screen'
+    # # # # # # # # # # 
+    # # # # # # # # # #  
+    # Top Row Buttons 
+    Button:
+        text: 'sdfsys'
+        pos_hint: {'x':0, 'top':1}
+        on_release: app.root.current = 'other_screen'
+    Button:
+        id: bttn_txt_0
+        text: 'txt'
+        pos_hint: {'x':bttn.txt_x_hint, 'top':1}
+        on_release:
+            # hide self, show other bttn 
+            self.pos_hint = {'x':bttn.hide}
+            bttn_txt_1.pos_hint = {'x':bttn.txt_x_hint, 'top':1}
+            # show other txt stuff
+            textbox.pos_hint = {'x':bttn.x, 'top':1-bttn.y}
+            textbox.focus = 1
+            bttn_prs.pos_hint = {'x':0, 'top':bttn.prs_y_hint}
+            bttn_get_i.pos_hint = {'x':0, 'top':bttn.get_i_y_hint}
+    Button:
+        id: bttn_txt_1
+        text: 'txt'
+        pos_hint: {'x':bttn.hide, 'top':bttn.hide}
+        color: sys.txt_rgba
+        on_release: 
+            # hide self, show other bttn 
+            self.pos_hint = {'x':bttn.hide}
+            bttn_txt_0.pos_hint = {'x':bttn.txt_x_hint, 'top':1}
+            # hide other txt stuff
+            textbox.pos_hint = {'x':bttn.hide, 'top':bttn.hide}
+            bttn_prs.pos_hint = {'x':0, 'top':bttn.hide}
+            bttn_get_i.pos_hint = {'x':0, 'top':bttn.hide}
+    Button:
+        text: 'spaces'
+        pos_hint: {'x':2*bttn.x, 'top':1}
+        color: rgba['f']
+        #on_release: '
+    Button:
+        id: bttn_i_0
+        text: 'i'
+        pos_hint: {'x':bttn.i_x_hint, 'top':1}
+        on_release:
+            # hide self, show other bttn 
+            self.pos_hint = {'x':bttn.hide}
+            bttn_i_1.pos_hint = {'x':bttn.i_x_hint, 'top':1}
+            # show other stuff
+            infobox.pos_hint = {'x':1-sys.infobox_size_x, 'top':1}
+    Button:
+        id: bttn_i_1
+        text: 'i'
+        color: sys.i_rgba
+        pos_hint: {'x':bttn.hide, 'top':1}
+        on_release: 
+            # hide self, show other bttn 
+            self.pos_hint = {'x':bttn.hide}
+            bttn_i_0.pos_hint = {'x':bttn.i_x_hint, 'top':1}
+            # hide other stuff
+            infobox.pos_hint = {'x':bttn.hide}
+
+    TextInput:
+        id: textbox
+        pos_hint: {'x':bttn.hide, 'top':bttn.hide}
+        size_hint: sys.textbox_size_x, sys.textbox_size_y 
+        foreground_color: sys.txt_rgba
+        auto_indent: True
+    TextInput:
+        id: infobox
+        text: 'info box'
+        pos_hint: {'x':bttn.hide, 'top':1}
+        size_hint: sys.infobox_size_x, sys.infobox_size_y
+        disabled: True
+        disabled_foreground_color: sys.i_rgba
+
+    # # # # # # # # # # # 
+    # # # # # # # # # # # 
+    # # Left Side Buttons 
+    Button:
+        id: bttn_prs
+        hidden: 1
+        text: 'parse'
+        pos_hint: {'x':0, 'top':bttn.hide}
+        color: sys.txt_rgba
+        on_release: 
+            self.parent.prep_text_data(textbox.text)
+    Button:
+        id: bttn_get_i
+        hidden: 1
+        text: 'get i'
+        pos_hint: {'x':0, 'top':bttn.hide}
+        color: sys.txt_rgba
+        on_release: 
+            self.parent.parse_text(textbox.text)
+
+<OtherScreen>:
+    name: 'other_screen'
+    Button:
+        text: 'sdfsys'
+        color: rgba['f']
+        pos_hint: {'x':0, 'top':1}
+        on_release: app.root.current = 'main_screen'
+
