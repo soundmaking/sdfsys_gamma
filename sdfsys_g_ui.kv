@@ -111,7 +111,7 @@ ScreenManagement:
         pos_hint: {'x':0, 'top':bttn.hide}
         color: sys.txt_rgba
         on_release: 
-            self.parent.txt.prep_text_data(textbox.text)
+            self.parent.txt.process_text(textbox.text)
     Button:
         id: bttn_get_i
         text: 'get i'

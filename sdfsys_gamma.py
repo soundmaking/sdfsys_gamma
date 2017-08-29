@@ -3,17 +3,17 @@
 # est. Aug 2017
 
 rgba_list = [
-    [1., 0., 0., 0.45],    # red
-    [1., 0.5, 0., 0.45],   # orange
-    [1., 1., 0., 0.45],    # yellow
-    [0., 1., 0., 0.45],    # green
-    [0., 1., 1., 0.45],    # cyan
-    [0., 0.5, 1., 0.45],   # blue
-    [0.375, 0., 1., 0.45], # purple
-    [1., 0., 1., 0.45],    # magenta
-    [0.5, 0.5, 0.5, 0.45], # half-way grey
-    [1., 1., 1., 0.45],    # inverse  (full contrast to background)
-    [0.,0.,0.,1.]          # screen background
+    [1., 0., 0., 0.45],     # red
+    [1., 0.5, 0., 0.45],    # orange
+    [1., 1., 0., 0.45],     # yellow
+    [0., 1., 0., 0.45],     # green
+    [0., 1., 1., 0.45],     # cyan
+    [0., 0.5, 1., 0.45],    # blue
+    [0.375, 0., 1., 0.45],  # purple
+    [1., 0., 1., 0.45],     # magenta
+    [0.5, 0.5, 0.5, 0.45],  # half-way grey
+    [1., 1., 1., 0.45],     # inverse  (full contrast to background)
+    [0., 0., 0., 1.]        # screen background
 ]
 
 rgba = {
@@ -46,9 +46,7 @@ rgba = {
 }
 
 
-
-
-class Bttn():
+class Bttn:
 
     x = 0.15  # size_hint value for width
     y = 0.1   # size_hint value for height
@@ -62,29 +60,30 @@ class Bttn():
     # Left Side Buttons
     prs_y_hint = 1-y
     get_i_y_hint = 1-(2*y)
+# end class Bttn()
 
 
-
-class SysUi():
+class SysUi:
     bttn = Bttn()
 
     txt_rgba = rgba['g']
     i_rgba = rgba['m']
 
-    textbox_size_x = 1-(bttn.x)
+    textbox_size_x = 1-bttn.x
     textbox_size_y = 1-(bttn.y*2)
 
     infobox_size_x = 0.4
-    infobox_size_y = 1-(bttn.y)
+    infobox_size_y = 1-bttn.y
+# end class SysUi()
 
 
-class TextBuffer():
+class TextBuffer:
     text_data = []
     this_line = []
     this_word = []
 
     def prep_text_data(self, text):
-        print('parse text')
+        print('prep text ...')
 
         self.text_data = []
 
@@ -98,14 +97,14 @@ class TextBuffer():
         is_endline = False
 
         for char in text:
-            ascii = ord(char)
+            ascii_of_char = ord(char)
 
-            if ascii is 10:
+            if ascii_of_char is 10:
                 is_endline = True
             else:
                 is_endline = False
 
-            if (ascii is 32) or (ascii is 9):
+            if (ascii_of_char is 32) or (ascii_of_char is 9):
                 is_space = True
             else:
                 is_space = False
@@ -125,9 +124,8 @@ class TextBuffer():
                 self.this_word = []
                 this_word_is_empty = True
 
-
             if is_endline:
-                if (not this_word_is_empty):
+                if not this_word_is_empty:
                     # join word into a string and add it to line
                     self.this_line.append(''.join(self.this_word))
                     this_line_is_empty = False
@@ -136,21 +134,47 @@ class TextBuffer():
                     self.this_word = []
                     this_word_is_empty = True
 
-                if (not this_line_is_empty):
+                if not this_line_is_empty:
                     self.text_data.append(self.this_line)
                     # reset line
                     self.this_line = []
                     this_line_is_empty = True
         # end for char in text
 
-        if (not this_word_is_empty):
+        if not this_word_is_empty:
             # join word into a string and add it to line
             self.this_line.append(''.join(self.this_word))
             this_line_is_empty = False
 
-        if (not this_line_is_empty):
+        if not this_line_is_empty:
             self.text_data.append(self.this_line)
 
-        print(self.text_data)
+        print(len(self.text_data), ' lines found')
 
     # end def prep_text_data(self, text)
+
+    def parse_line(self, line_index):
+        lines = len(self.text_data)
+        recursion = False
+
+        if line_index < lines:
+
+            if line_index < 0:
+                # negative number to parse all lines
+                recursion = True
+                for index in range(lines):
+                    self.parse_line(index)
+
+            if not recursion:
+                print(self.text_data[line_index])
+
+        # end if line_index < lines
+        else:
+            print('no line', line_index)
+    # end def parse_line(self, line_index)
+
+    def process_text(self, text):
+        self.prep_text_data(text)
+        self.parse_line(-1)
+
+# end class TextBuffer()
