@@ -107,7 +107,6 @@ ScreenManagement:
     # # Left Side Buttons 
     Button:
         id: bttn_prs
-        hidden: 1
         text: 'parse'
         pos_hint: {'x':0, 'top':bttn.hide}
         color: sys.txt_rgba
@@ -115,12 +114,13 @@ ScreenManagement:
             self.parent.txt.prep_text_data(textbox.text)
     Button:
         id: bttn_get_i
-        hidden: 1
         text: 'get i'
         pos_hint: {'x':0, 'top':bttn.hide}
         color: sys.txt_rgba
         on_release: 
-            self.parent.parse_text(textbox.text)
+            #textbox.text = infobox.text
+            textbox.insert_text(chr(10), from_undo=False)
+            textbox.insert_text(infobox.text, from_undo=False)
 
 <OtherScreen>:
     name: 'other_screen'

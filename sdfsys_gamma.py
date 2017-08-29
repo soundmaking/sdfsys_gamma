@@ -77,8 +77,8 @@ class SysUi():
     infobox_size_x = 0.4
     infobox_size_y = 1-(bttn.y)
 
-class TextBuffer():
 
+class TextBuffer():
     text_data = []
     this_line = []
     this_word = []
