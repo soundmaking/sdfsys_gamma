@@ -207,3 +207,14 @@ class TextBuffer:
         self.parse_line(-1)
 
 # end class TextBuffer()
+
+class SpaceStructure:
+    def __init__(self, space_number):
+        self.space_number = space_number
+        self.rgba = rgba[space_number]
+
+    def ui_bttn_release(self):
+        print(self.rgba)
+
+# end class SpaceStructure
+

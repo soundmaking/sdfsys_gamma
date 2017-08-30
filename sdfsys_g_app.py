@@ -10,6 +10,9 @@ import sdfsys_gamma as sdfsys
 
 class MainScreen(Screen):
     txt = sdfsys.TextBuffer()
+    spaces_netwrk = []
+    for num in range(8):
+        spaces_netwrk.append(sdfsys.SpaceStructure(num))
 
 
 
