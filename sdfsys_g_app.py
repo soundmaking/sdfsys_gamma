@@ -15,19 +15,16 @@ class MainScreen(Screen):
         spaces_netwrk.append(sdfsys.SpaceStructure(num))
 
 
-
-
 class OtherScreen(Screen):
     pass
-
-
-
 
 
 class ScreenManagement(ScreenManager):
     pass
 
+
 interface = Builder.load_file("sdfsys_g_ui.kv")
+
 
 class SdfsysApp(App):
     def build(self):

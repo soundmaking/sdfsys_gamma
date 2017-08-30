@@ -87,8 +87,6 @@ class Bttn:
         'hide': {'x': hide}
     }
 
-
-
 # end class Bttn()
 
 
@@ -208,6 +206,7 @@ class TextBuffer:
 
 # end class TextBuffer()
 
+
 class SpaceStructure:
     def __init__(self, space_number):
         self.space_number = space_number
@@ -217,4 +216,3 @@ class SpaceStructure:
         print(self.rgba)
 
 # end class SpaceStructure
-
