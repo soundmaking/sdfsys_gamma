@@ -216,3 +216,15 @@ class SpaceStructure:
         print(self.rgba)
 
 # end class SpaceStructure
+
+class Thisis:
+    # fixme thisis not tested
+    has_been_put = {}
+
+    ### put is the fundamental thisis command with syntax structure:
+      # put <point name> <put type [at|on|where|group]> <(additional info to specify where)>
+    def put(self, *args):
+        pnt_name = args[0]
+        p_type = args[1]
+        if p_type is 'at':
+            print('put at')
