@@ -2,6 +2,8 @@
 # by Samuel Freeman
 # est. Aug 2017
 
+import thisis_gamma
+
 rgba_list = [
     [1., 0., 0., 0.45],     # 0 red
     [1., 0.5, 0., 0.45],    # 1 orange
@@ -104,10 +106,18 @@ class SysUi:
 # end class SysUi()
 
 
-class TextBuffer:
+
+
+
+class TextArea:
     text_data = []
+
     this_line = []
     this_word = []
+
+    thisis = thisis_gamma.Thisis()
+
+
 
     def prep_text_data(self, text):
         print('prep text ...')
@@ -193,7 +203,15 @@ class TextBuffer:
                     self.parse_line(index)
 
             if not recursion:
-                print(self.text_data[line_index])
+                self.this_line = self.text_data[line_index]
+                print(self.this_line)
+
+                if self.this_line[0] in thisis_gamma.keyword_list:
+                    print("parse thisis")
+                    self.thisis.parse_line(self.this_line)
+
+
+
 
         # end if line_index < lines
         else:
@@ -217,14 +235,3 @@ class SpaceStructure:
 
 # end class SpaceStructure
 
-class Thisis:
-    # fixme thisis not tested
-    has_been_put = {}
-
-    ### put is the fundamental thisis command with syntax structure:
-      # put <point name> <put type [at|on|where|group]> <(additional info to specify where)>
-    def put(self, *args):
-        pnt_name = args[0]
-        p_type = args[1]
-        if p_type is 'at':
-            print('put at')
