@@ -146,11 +146,12 @@ ScreenManagement:
     # # Left Side Buttons
     Button:
         id: bttn_prs
-        text: 'txt | ^'
+        text: '| run ^'
         pos_hint: {'x':0, 'top':bttn.prs_y_hint}
         color: sys.txt_rgba
-        on_release: 
+        on_release:
             self.parent.txt.process_text(textbox.text)
+            infobox.text = self.parent.txt.i_txt_str
     Button:
         id: bttn_get_i
         text: '| i >'

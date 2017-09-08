@@ -2,6 +2,7 @@
 # by Samuel Freeman
 # est. Aug 2017
 
+from kivy.uix.widget import Widget
 import thisis_gamma
 
 rgba_list = [
@@ -117,6 +118,9 @@ class TextArea:
 
     thisis = thisis_gamma.Thisis()
 
+    info_text = []
+    i_txt_str = ''
+
 
 
     def prep_text_data(self, text):
@@ -206,27 +210,38 @@ class TextArea:
                 self.this_line = self.text_data[line_index]
                 print(self.this_line)
 
-                if self.this_line[0] in thisis_gamma.keyword_list:
-                    print("parse thisis")
-                    self.thisis.parse_line(self.this_line)
-
-
-
-
+                print("parse with thisis")
+                line_ret_msg = self.thisis.parse_line(self.this_line)
+                self.info_text.append(line_ret_msg)
+                print('info:', self.info_text)
         # end if line_index < lines
         else:
             print('no line', line_index)
     # end def parse_line(self, line_index)
 
     def process_text(self, text):
+        self.info_text = []
+
         self.prep_text_data(text)
         self.parse_line(-1)
+
+        self.i_txt_str = ''
+
+        # fixme filter ret_msg by type
+        for i_line in self.info_text:
+            for word in i_line:
+                self.i_txt_str += str(word) + chr(32)
+            self.i_txt_str += chr(10)
+
+        # print('i_txt_str', self.i_txt_str)
+
 
 # end class TextBuffer()
 
 
-class SpaceStructure:
-    def __init__(self, space_number):
+class SpaceStructure(Widget):
+    def __init__(self, space_number, **kwargs):
+        super(SpaceStructure, self).__init__(**kwargs)
         self.space_number = space_number
         self.rgba = rgba[space_number]
 
