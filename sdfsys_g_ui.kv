@@ -106,18 +106,18 @@ ScreenManagement:
     Button:
         id: bttn_i_0
         text: 'i'
-        pos_hint: {'x':bttn.i_x_hint, 'top':1}
+        pos_hint: {'x':bttn.hide, 'top':1}
         on_release:
             # hide self, show other bttn 
             self.pos_hint = {'x':bttn.hide}
             bttn_i_1.pos_hint = {'x':bttn.i_x_hint, 'top':1}
             # show other stuff
-            infobox.pos_hint = {'x':1-sys.infobox_size_x, 'top':1}
+            infobox.pos_hint = sys.infobox_pos_hint
     Button:
         id: bttn_i_1
         text: 'i'
         color: sys.i_rgba
-        pos_hint: {'x':bttn.hide, 'top':1}
+        pos_hint: {'x':bttn.i_x_hint, 'top':1}
         on_release: 
             # hide self, show other bttn 
             self.pos_hint = {'x':bttn.hide}
@@ -136,7 +136,7 @@ ScreenManagement:
     TextInput:
         id: infobox
         text: '/! sdfsys_gamma'
-        pos_hint: {'x':bttn.hide, 'top':1}
+        pos_hint: sys.infobox_pos_hint
         size_hint: sys.infobox_size_x, sys.infobox_size_y
         disabled: True
         disabled_foreground_color: sys.i_rgba
@@ -146,7 +146,7 @@ ScreenManagement:
     # # Left Side Buttons
     Button:
         id: bttn_prs
-        text: '| run ^'
+        text: 'parse'
         pos_hint: {'x':0, 'top':bttn.prs_y_hint}
         color: sys.txt_rgba
         on_release:
@@ -154,7 +154,7 @@ ScreenManagement:
             infobox.text = self.parent.txt.i_txt_str
     Button:
         id: bttn_get_i
-        text: '| i >'
+        text: 'get i'
         size_hint_x: bttn.x/2
         pos_hint: {'x':bttn.get_i_x_hint, 'top':bttn.get_i_y_hint}
         color: sys.txt_rgba

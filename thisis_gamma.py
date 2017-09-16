@@ -19,9 +19,10 @@ return_types_dict = {
     '/v': 'vector or value data'
 }
 
+# commenting:
+to_comment_line = ['//', '/!'] + list(return_types_dict.keys())
 to_start_block_comment = ['/*', '/..']
 to_end_block_comment = ['*/', '../']
-to_comment_line = ['//', '/!']
 
 class Thisis:
     has_been_put = {'x': Vector2(0.50, 0.50), 'z': Vector2(0.00, 0.00)}
@@ -71,12 +72,24 @@ class Thisis:
         if kw == 'draw':
 
             v1_name = txt_in[1]
+
+            if v1_name not in self.has_been_put:
+                ret_msg = ['/?', v1_name, 'has not been put']
+                print('ret_msg:', ret_msg)
+                return ret_msg
+
             draw_type = txt_in[2]
 
             if draw_type in types_of_draw:
                 print('draw_type = ', draw_type)
                 if draw_type == 'to':
                     v2_name = txt_in[3]
+
+                    if v2_name not in self.has_been_put:
+                        ret_msg = ['/?', v2_name, 'has not been put']
+                        print('ret_msg:', ret_msg)
+                        return ret_msg
+
                     ret_msg = ['/_',
                                'linesegment',
                                self.has_been_put[v1_name].x,

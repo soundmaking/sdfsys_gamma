@@ -102,8 +102,11 @@ class SysUi:
     textbox_size_x = 1-bttn.x
     textbox_size_y = 1-(bttn.y*2)
 
-    infobox_size_x = 0.4
-    infobox_size_y = 1-bttn.y
+    infobox_size_x = 1-(4*bttn.x)
+    infobox_size_y = 1-(bttn.y*2)
+    infobox_pos_hint = {'x': 1-infobox_size_x,
+                        'top': 1-(bttn.y*0.5)}
+
 # end class SysUi()
 
 
@@ -210,19 +213,27 @@ class TextArea:
 
             if not doing_recursion:
                 if not self.parse_is_in_block_comment:
-                    self.this_line = self.text_data[line_index]
-                    print(self.this_line)
 
+                    self.this_line = self.text_data[line_index]
                     kw = self.this_line[0]
-                    if kw not in thisis_gamma.to_comment_line:
-                        print("parse with thisis")
+
+                    if kw in thisis_gamma.to_start_block_comment:
+                        self.parse_is_in_block_comment = True
+                    elif kw not in thisis_gamma.to_comment_line:
+                        print("parse line with thisis...")
+
                         line_ret_msg = self.thisis.parse_line(self.this_line)
                         self.info_text.append(line_ret_msg)
-                        print('info:', self.info_text)
+
+                        print('updated info:', self.info_text)
                     # end if not comment line
-                    else:
-                        print('commented line:', line_index)
                 # end if not self.parse_is_in_block_comment
+                else:
+                    # is in comment block, so look for end of block
+                    kw = self.text_data[line_index][0]
+                    if kw in thisis_gamma.to_end_block_comment:
+                        self.parse_is_in_block_comment = False
+            # end if not doing_recursion
         # end if line_index < lines
         else:
             print('no line', line_index)
