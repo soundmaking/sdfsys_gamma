@@ -121,6 +121,8 @@ class TextArea:
     info_text = []
     i_txt_str = ''
 
+    parse_is_in_block_comment = False
+
 
 
     def prep_text_data(self, text):
@@ -196,24 +198,31 @@ class TextArea:
 
     def parse_line(self, line_index):
         lines = len(self.text_data)
-        recursion = False
+        doing_recursion = False
 
         if line_index < lines:
 
             if line_index < 0:
                 # negative number to parse all lines
-                recursion = True
+                doing_recursion = True
                 for index in range(lines):
                     self.parse_line(index)
 
-            if not recursion:
-                self.this_line = self.text_data[line_index]
-                print(self.this_line)
+            if not doing_recursion:
+                if not self.parse_is_in_block_comment:
+                    self.this_line = self.text_data[line_index]
+                    print(self.this_line)
 
-                print("parse with thisis")
-                line_ret_msg = self.thisis.parse_line(self.this_line)
-                self.info_text.append(line_ret_msg)
-                print('info:', self.info_text)
+                    kw = self.this_line[0]
+                    if kw not in thisis_gamma.to_comment_line:
+                        print("parse with thisis")
+                        line_ret_msg = self.thisis.parse_line(self.this_line)
+                        self.info_text.append(line_ret_msg)
+                        print('info:', self.info_text)
+                    # end if not comment line
+                    else:
+                        print('commented line:', line_index)
+                # end if not self.parse_is_in_block_comment
         # end if line_index < lines
         else:
             print('no line', line_index)
@@ -223,7 +232,7 @@ class TextArea:
         self.info_text = []
 
         self.prep_text_data(text)
-        self.parse_line(-1)
+        self.parse_line(-1)  # negative number to parse all lines
 
         self.i_txt_str = ''
 
