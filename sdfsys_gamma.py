@@ -79,6 +79,7 @@ class Bttn:
     get_i_y_hint = 1-(2*y)
 
     spc_n_pos_hint = {
+        'opt': {'x': 0, 'top': 1-(2*y)},
         0: {'x': 0, 'top': 1-(3*y)},
         1: {'x': x/2, 'top': 1-(3*y)},
         2: {'x': 0, 'top': 1-(4*y)},
@@ -89,6 +90,19 @@ class Bttn:
         7: {'x': x/2, 'top': 1-(6*y)},
         'hide': {'x': hide}
     }
+
+    spc_bttn_text_state = {
+        0: '[ ]',
+        1: '[-]',
+        2: '[=]'
+    }
+
+    spc_bttn_text_opt = {
+        0: '[_]',
+        1: '[+]'
+    }
+
+
 
 # end class Bttn()
 
@@ -256,17 +270,6 @@ class TextArea:
         # print('i_txt_str', self.i_txt_str)
 
 
-# end class TextBuffer()
+# end class
 
-
-class SpaceStructure(Widget):
-    def __init__(self, space_number, **kwargs):
-        super(SpaceStructure, self).__init__(**kwargs)
-        self.space_number = space_number
-        self.rgba = rgba[space_number]
-
-    def ui_bttn_release(self):
-        print(self.rgba)
-
-# end class SpaceStructure
 

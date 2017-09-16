@@ -12,7 +12,7 @@
 
 <TextInput>:
     font_name: 'RobotoMono-Regular'
-    font_size: self.parent.height*0.045
+    font_size: root.height*0.045
     background_color: [0,0,0,0]
 
 ScreenManagement:
@@ -67,7 +67,8 @@ ScreenManagement:
     # spaces
     Button:
         id: bttn_spaces_1
-        text: '[ + ]'
+        font_name: 'RobotoMono-Regular'
+        text: bttn.spc_bttn_text_opt[1]
         pos_hint: {'x':bttn.spaces_x_hint, 'top':1}
         color: rgba['f']
         on_release:
@@ -75,6 +76,7 @@ ScreenManagement:
             self.pos_hint = {'x':bttn.hide}
             bttn_spaces_0.pos_hint = {'x':bttn.spaces_x_hint, 'top':1}
             # hide other txt stuff
+            bttn_spc_opt.pos_hint = bttn.spc_n_pos_hint['hide']
             bttn_spc_0.pos_hint = bttn.spc_n_pos_hint['hide']
             bttn_spc_1.pos_hint = bttn.spc_n_pos_hint['hide']
             bttn_spc_2.pos_hint = bttn.spc_n_pos_hint['hide']
@@ -85,7 +87,8 @@ ScreenManagement:
             bttn_spc_7.pos_hint = bttn.spc_n_pos_hint['hide']
     Button:
         id: bttn_spaces_0
-        text: '[ + ]'
+        font_name: 'RobotoMono-Regular'
+        text: bttn.spc_bttn_text_opt[1]
         pos_hint: {'x':bttn.hide, 'top':1}
         color: rgba['h']
         on_release:
@@ -93,6 +96,7 @@ ScreenManagement:
             self.pos_hint = {'x':bttn.hide}
             bttn_spaces_1.pos_hint = {'x':bttn.spaces_x_hint, 'top':1}
             # show other txt stuff
+            bttn_spc_opt.pos_hint = bttn.spc_n_pos_hint['opt']
             bttn_spc_0.pos_hint = bttn.spc_n_pos_hint[0]
             bttn_spc_1.pos_hint = bttn.spc_n_pos_hint[1]
             bttn_spc_2.pos_hint = bttn.spc_n_pos_hint[2]
@@ -150,8 +154,8 @@ ScreenManagement:
         pos_hint: {'x':0, 'top':bttn.prs_y_hint}
         color: sys.txt_rgba
         on_release:
-            self.parent.txt.process_text(textbox.text)
-            infobox.text = self.parent.txt.i_txt_str
+            root.txt.process_text(textbox.text)
+            infobox.text = root.txt.i_txt_str
     Button:
         id: bttn_get_i
         text: '| i |'
@@ -165,33 +169,49 @@ ScreenManagement:
     # # # # # # # # # # #
     # # Spaces Buttons
     Button:
+        id: bttn_spc_opt
+        font_name: 'RobotoMono-Regular'
+        text: bttn.spc_bttn_text_opt[root.space_opt_value]
+        size_hint_x: bttn.x/2
+        pos_hint: bttn.spc_n_pos_hint['opt']
+        color: rgba['f']
+        on_release:
+            root.space_opt_value = (-1*root.space_opt_value)+1
+            self.text = bttn.spc_bttn_text_opt[root.space_opt_value]
+    Button:
         id: bttn_spc_0
-        text: '[ _ ]'
+        font_name: 'RobotoMono-Regular'
+        text: bttn.spc_bttn_text_state[1]
         size_hint_x: bttn.x/2
         pos_hint: bttn.spc_n_pos_hint[0]
         color: rgba[0]
         on_release:
             infobox.text = 'space 0'
-            self.parent.spaces_netwrk[0].ui_bttn_release()
+            self.text = root.space_button_release(0)
     Button:
         id: bttn_spc_1
-        text: '[ _ ]'
+        font_name: 'RobotoMono-Regular'
+        text: bttn.spc_bttn_text_state[1]
         size_hint_x: bttn.x/2
         pos_hint: bttn.spc_n_pos_hint[1]
         color: rgba[1]
         on_release:
             infobox.text = 'space 1'
+            self.text = root.space_button_release(1)
     Button:
         id: bttn_spc_2
-        text: '[ _ ]'
+        font_name: 'RobotoMono-Regular'
+        text: bttn.spc_bttn_text_state[1]
         size_hint_x: bttn.x/2
         pos_hint: bttn.spc_n_pos_hint[2]
         color: rgba[2]
         on_release:
             infobox.text = 'space 2'
+            self.text = root.space_button_release(2)
     Button:
         id: bttn_spc_3
-        text: ' _ '
+        font_name: 'RobotoMono-Regular'
+        text: bttn.spc_bttn_text_state[0]
         size_hint_x: bttn.x/2
         pos_hint: bttn.spc_n_pos_hint[3]
         color: rgba[3]
@@ -199,15 +219,18 @@ ScreenManagement:
             infobox.text = 'space 3 not in use'
     Button:
         id: bttn_spc_4
-        text: '[ _ ]'
+        font_name: 'RobotoMono-Regular'
+        text: bttn.spc_bttn_text_state[1]
         size_hint_x: bttn.x/2
         pos_hint: bttn.spc_n_pos_hint[4]
         color: rgba[4]
         on_release:
             infobox.text = 'space 4'
+            self.text = root.space_button_release(4)
     Button:
         id: bttn_spc_5
-        text: ' _ '
+        font_name: 'RobotoMono-Regular'
+        text: bttn.spc_bttn_text_state[0]
         size_hint_x: bttn.x/2
         pos_hint: bttn.spc_n_pos_hint[5]
         color: rgba[5]
@@ -215,7 +238,8 @@ ScreenManagement:
             infobox.text = 'space 5 not in use'
     Button:
         id: bttn_spc_6
-        text: ' _ '
+        font_name: 'RobotoMono-Regular'
+        text: bttn.spc_bttn_text_state[0]
         size_hint_x: bttn.x/2
         pos_hint: bttn.spc_n_pos_hint[6]
         color: rgba[6]
@@ -223,7 +247,8 @@ ScreenManagement:
             infobox.text = 'space 6 not in use'
     Button:
         id: bttn_spc_7
-        text: ' _ '
+        font_name: 'RobotoMono-Regular'
+        text: bttn.spc_bttn_text_state[0]
         size_hint_x: bttn.x/2
         pos_hint: bttn.spc_n_pos_hint[7]
         color: rgba[7]
