@@ -128,21 +128,24 @@ class SysUi:
 
 
 class TextArea:
-    text_data = []
+    text_data = []  # buffer for lines of text as lists of strings
 
-    this_line = []
-    this_word = []
+    this_line = []  # buffer for one line of text as lists of strings
+    this_word = []  # buffer for one word as a list of chars
 
     thisis = thisis_gamma.Thisis()
 
-    info_text = []
-    i_txt_str = ''
+    text_parse_return = []  # buffer for messages returned by parse functions
+
+    i_txt_str = ''  # string for output to 'infobox' widget on ui
 
     parse_is_in_block_comment = False
 
-
-
     def prep_text_data(self, text):
+        # prep as in prepare, but also
+        # prep as in pre-process...
+        #     input text is expected as from a kivy TextInput widget
+        #     output is to repopulate the text_data array
         print('prep text ...')
 
         self.text_data = []
@@ -214,32 +217,41 @@ class TextArea:
     # end def prep_text_data(self, text)
 
     def parse_line(self, line_index):
-        lines = len(self.text_data)
+        num_lines = len(self.text_data)
         doing_recursion = False
 
-        if line_index < lines:
+        if line_index < num_lines:
 
             if line_index < 0:
                 # negative number to parse all lines
                 doing_recursion = True
-                for index in range(lines):
+                for index in range(num_lines):
                     self.parse_line(index)
 
             if not doing_recursion:
                 if not self.parse_is_in_block_comment:
-
+                    # Get Line to Parse
                     self.this_line = self.text_data[line_index]
+
+                    # Get Keyword
                     kw = self.this_line[0]
 
                     if kw in thisis_gamma.to_start_block_comment:
+                        # start comment block...
                         self.parse_is_in_block_comment = True
                     elif kw not in thisis_gamma.to_comment_line:
-                        print("parse line with thisis...")
+                        # line is not comment:
 
-                        line_ret_msg = self.thisis.parse_line(self.this_line)
-                        self.info_text.append(line_ret_msg)
+                        if False:
+                            # todo implement sdfsys commands and parse for them before thisis
+                            pass
+                        # end if keyword matches sdfsys dict
+                        else:
+                            # parse line with thisis
+                            print("parse line with thisis...")
+                            parse_line_return = self.thisis.parse_line(self.this_line)
 
-                        print('updated info:', self.info_text)
+                        self.text_parse_return.append(parse_line_return)
                     # end if not comment line
                 # end if not self.parse_is_in_block_comment
                 else:
@@ -254,15 +266,17 @@ class TextArea:
     # end def parse_line(self, line_index)
 
     def process_text(self, text):
-        self.info_text = []
+        self.text_parse_return = []  # reset return buffer
 
-        self.prep_text_data(text)
+        self.prep_text_data(text)  # text is expected as from a kivy TextInput widget
+
         self.parse_line(-1)  # negative number to parse all lines
 
-        self.i_txt_str = ''
+        self.i_txt_str = ''  # reset string for output to 'infobox' widget on ui
 
         # fixme filter ret_msg by type
-        for i_line in self.info_text:
+        # ... currently spitting all returns to the infobox
+        for i_line in self.text_parse_return:
             for word in i_line:
                 self.i_txt_str += str(word) + chr(32)
             self.i_txt_str += chr(10)
