@@ -265,25 +265,39 @@ class TextArea:
             print('no line', line_index)
     # end def parse_line(self, line_index)
 
+    def add_line_to_string(self, line, string):
+        for word in line:
+            string += str(word) + chr(32)
+        string += chr(10)
+        return string
+
     def process_text(self, text):
-        self.text_parse_return = []  # reset return buffer
+        # the text input here is expected as from a kivy TextInput widget
 
-        self.prep_text_data(text)  # text is expected as from a kivy TextInput widget
+        # reset return buffer and infobox string
+        self.text_parse_return = []
+        self.i_txt_str = ''
 
-        self.parse_line(-1)  # negative number to parse all lines
+        # pre-process the raw text (string)
+        #     into cooked self.text_data (buffer)
+        self.prep_text_data(text)
 
-        self.i_txt_str = ''  # reset string for output to 'infobox' widget on ui
+        # recursively parse all lines in self.text_data
+        #     and populate self.text_parse_return buffer
+        self.parse_line(-1)
 
-        # fixme filter ret_msg by type
-        # ... currently spitting all returns to the infobox
-        for i_line in self.text_parse_return:
-            for word in i_line:
-                self.i_txt_str += str(word) + chr(32)
-            self.i_txt_str += chr(10)
+        # process the messages returned by parse
+        for line_return in self.text_parse_return:
+            kw = line_return[0]
+            if kw == '/_':
+                # /_ is drawing data
+                del line_return[0]
+                print(line_return)
+            # end if drawing data
+            else:
+                # add line to info box
+                self.i_txt_str = self.add_line_to_string(line_return, self.i_txt_str)
 
-        # print('i_txt_str', self.i_txt_str)
 
 
-# end class
-
-
+# end class TextArea
