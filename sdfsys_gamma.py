@@ -141,6 +141,8 @@ class TextArea:
 
     parse_is_in_block_comment = False
 
+    drawing_commands = []  #
+
     def prep_text_data(self, text):
         # prep as in prepare, but also
         # prep as in pre-process...
@@ -288,11 +290,16 @@ class TextArea:
 
         # process the messages returned by parse
         for line_return in self.text_parse_return:
-            kw = line_return[0]
-            if kw == '/_':
+            return_type = line_return[0]
+            if return_type == '/_':
                 # /_ is drawing data
+
+                # delete the return_type
                 del line_return[0]
-                print(line_return)
+
+                # add drawing command to drawing_list
+                self.drawing_commands.append(line_return)
+
             # end if drawing data
             else:
                 # add line to info box

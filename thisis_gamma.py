@@ -24,6 +24,10 @@ to_comment_line = ['//', '/!'] + list(return_types_dict.keys())
 to_start_block_comment = ['/*', '/..']
 to_end_block_comment = ['*/', '../']
 
+
+
+
+
 class Thisis:
     has_been_put = {'x': Vector2(0.50, 0.50), 'z': Vector2(0.00, 0.00)}
 
