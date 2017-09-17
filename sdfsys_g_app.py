@@ -40,13 +40,22 @@ class SpaceStructure(Widget):
 class MainScreen(Screen):
     txt = sdfsys.TextArea()
     spaces_netwrk = []  # array of SpaceStructure widgets
-    space_opt_value = 1
+    space_opt_value = 1  # option value toggles {1:'[+]', 0:'[_]'}
 
     for num in range(8):
         spaces_netwrk.append(SpaceStructure(num))
 
     def space_button_release(self, num):
         return self.spaces_netwrk[num].change_active_state(self.space_opt_value)
+
+    def parse_button_release(self):
+        self.txt.process_text(self.ids.textbox.text)
+        self.ids.infobox.text = self.txt.i_txt_str
+
+    def get_i_button_release(self):
+        self.ids.textbox.insert_text(chr(10), from_undo=False)
+        self.ids.textbox.insert_text(self.ids.infobox.text, from_undo=False)
+
 
 
 class OtherScreen(Screen):

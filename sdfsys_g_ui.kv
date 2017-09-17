@@ -154,18 +154,16 @@ ScreenManagement:
         pos_hint: {'x':0, 'top':bttn.prs_y_hint}
         color: sys.txt_rgba
         on_release:
-            root.txt.process_text(textbox.text)
-            infobox.text = root.txt.i_txt_str
+            root.parse_button_release()
     Button:
         id: bttn_get_i
         text: '| i |'
         size_hint_x: bttn.x/2
         pos_hint: {'x':bttn.get_i_x_hint, 'top':bttn.get_i_y_hint}
         color: sys.txt_rgba
-        on_release: 
-            #textbox.text = infobox.text
-            textbox.insert_text(chr(10), from_undo=False)
-            textbox.insert_text(infobox.text, from_undo=False)
+        on_release:
+            root.get_i_button_release()
+
     # # # # # # # # # # #
     # # Spaces Buttons
     Button:
