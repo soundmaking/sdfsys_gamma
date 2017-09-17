@@ -132,18 +132,18 @@ ScreenManagement:
     # # # # # # # # # # #
     # # # # # # # # # # #
     TextInput:
-        id: textbox
-        pos_hint: {'x':bttn.x, 'top':1-bttn.y}
-        size_hint: sys.textbox_size_x, sys.textbox_size_y 
-        foreground_color: sys.txt_rgba
-        auto_indent: True
-    TextInput:
         id: infobox
         text: '/! sdfsys_gamma'
         pos_hint: sys.infobox_pos_hint
         size_hint: sys.infobox_size_x, sys.infobox_size_y
         disabled: True
         disabled_foreground_color: sys.i_rgba
+    TextInput:
+        id: textbox
+        pos_hint: {'x':bttn.x, 'top':1-bttn.y}
+        size_hint: sys.textbox_size_x, sys.textbox_size_y
+        foreground_color: sys.txt_rgba
+        auto_indent: True
 
     # # # # # # # # # # # 
     # # # # # # # # # # # 
